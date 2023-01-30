@@ -1,0 +1,30 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+djangorestframework = "*"
+django = "*"
+django-on-heroku = "*"
+gunicorn = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
+django-cors-headers = "*"
+requests = "*"
+pylint = "*"
+pillow = "*"
+mock = "*"
+install = "*"
+psycopg2-binary = "*"
+django-anymail = {extras = ["mailgun"], version = "*"}
+pydantic = "*"
+drf-yasg = "*"
+
+[dev-packages]
+black = "*"
+isort = "*"
+
+[requires]
+python_version = "3.10"
+python_full_version = "3.10.6"
