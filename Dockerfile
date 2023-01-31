@@ -19,6 +19,6 @@ RUN apt-get -y install libpq-dev gcc
 # install pipenv and project dependencies
 RUN pip install -U pipenv
 COPY Pipfile Pipfile.lock ./
-RUN pipenv install --system --deploy --ignore-pipfile
+RUN pipenv install --dev --system --deploy --ignore-pipfile
 
 COPY . .
