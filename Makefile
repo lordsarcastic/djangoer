@@ -21,7 +21,7 @@ flush-db:
 	@make down
 
 install:
-	@pipenv install
+	@pipenv install --dev
 
 lint:
 	@isort .
