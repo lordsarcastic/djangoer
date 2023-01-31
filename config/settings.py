@@ -11,6 +11,20 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from typing import List
+
+import django_on_heroku
+from pydantic import BaseSettings, PostgresDsn
+
+
+class GeneralSettings(BaseSettings):
+    DEBUG: bool = False
+    SECRET_KEY: str
+    ALLOWED_HOSTS: List[str]
+    DATABASE_URL: PostgresDsn
+    ENV: str = "production"
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,17 +34,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&jz8kbf8wxza9t4k9k^%r67wv3jhc0q##1_58%s4%q6gpjc)_='
+SECRET_KEY = GeneralSettings().SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = GeneralSettings().DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = GeneralSettings().ALLOWED_HOSTS
 
 
 # Application definition
-
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +52,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+THIRD_PARTY_APPS = [
+    "rest_framework",
+    "rest_framework.authtoken",
+    "djoser",
+    "anymail",
+    "corsheaders",
+    "drf_yasg"
+]
+
+CUSTOM_APPS = []
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
+
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,12 +100,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+DATABASES = {"default": {"ENGINE": "django.db.backends.postgresql_psycopg2"}}
 
 
 # Password validation
@@ -121,3 +143,23 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+REST_USE_JWT = True
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("JWT",),
+}
+
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+
+django_on_heroku.settings(locals(), test_runner=False)
+if GeneralSettings().ENV == "development":
+    del DATABASES["default"]["OPTIONS"]["sslmode"]
