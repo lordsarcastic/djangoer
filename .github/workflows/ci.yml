@@ -1,0 +1,60 @@
+name: Run tests
+
+on: [push]
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install Pipenv
+        uses: dschep/install-pipenv-action@v1
+      
+      - name: Cache Pipenv Virtualenv
+        uses: actions/cache@v1
+        id: pipenv-cache
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-pipenv-v2-${{ hashFiles('**/Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pipenv-v2-
+
+      - name: Install Dependencies
+        run: pipenv install --deploy --dev
+        if: steps.pipenv-cache.outputs.cache-hit != 'true'
+      
+      - name: Set environment variables
+        run: |
+          cp .env.ci .env
+
+      - name: Run tests
+        env:
+          DATABASE_URL: 'postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/test?sslmode=disable'
+
+        run: |
+          pipenv run python manage.py migrate --noinput
+          pipenv run python manage.py test --noinput
