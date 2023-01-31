@@ -11,21 +11,11 @@ You've just gotten on this project and you're as excited as bells, yes? Well, th
 
 ## FAQ
 - Must I do this: Yes
-- Why: Read up
+- Why: Read the second line of this page
 - What happens if I don't do it: Nothing. I hope I can wring your neck when we meet sha.
 - Is this the best implementation there is: Nah, I don't think so. It is subject to review and subsequent update. For now, do this.
 - How did you come up with this: Can't remember
 - Has it worked so far: I think so
-- What else: Nothing
 
 ### Got issues?
 Raise an issue
-
-### Don't have issues?
-Do giveaway
-
-### Friend's got issues?
-Can't help, sorry
-
-### Friend's not got issues?
-Cool.

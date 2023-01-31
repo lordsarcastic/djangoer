@@ -2,7 +2,7 @@
 Making PRs are supposed to be easy, albeit, we'll be following these rules:
 
 ## How to begin
-We'll be having two main branches in total: `dev` and `main`, where `dev` is where you clone and make PRs against, and `main` is the production branch which is continually deployed to the live url.
+We'll be having two master branches in total: `dev` and `master`, where `dev` is where you clone and make PRs against, and `master` is the production branch which is continually deployed to the live url.
 
 - First, checkout to the `dev` branch
 - Create your own branch for your task with `git checkout -b <first_name>/<issue-id>`, where <issue-id> refers to the ID given
