@@ -5,6 +5,7 @@ bash:
 	@docker compose run app bash
 
 build:
+	@pipenv install --dev
 	@docker compose build
 
 build-up:
@@ -19,6 +20,9 @@ down:
 flush-db:
 	@docker compose run app python manage.py flush
 	@make down
+
+format:
+	@pipenv run isort . && pipenv run black .
 
 install:
 	@pipenv install --dev
