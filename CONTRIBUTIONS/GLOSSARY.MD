@@ -13,6 +13,7 @@ make <command>
 - build-up: builds and starts the containers
 - createsuperuser: spawns the Django app to create a superuser
 - down: stops the containers
+- format: runs isort and black on the codebase to make it fine
 - flush-db: empties the database and begins the DB from scratch
 - install: installs all dependencies in a virtual env locally
 - lint: runs isort to sort imports and black for formatting

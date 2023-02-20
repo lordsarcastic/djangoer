@@ -18,7 +18,12 @@ Where:
 - Message: refers to a message describing the changes made. It is important that each commit should only reflect one feature or implementation change. You should not cram two functionalities into one commit except they depend closely on one another. For example, implmentation of auth and adding views for a user profile are closely related but do not inter-depend on one another and should be separated into different commits. This is just to ensure a dev could work with states that are narrowed down to specific implementations and features.
 
 ### Precommits and Linting
-Before commiting any changes/files, you must set up pre-commit hooks so that our files would be formatted properly. To set up:
+Before commiting any changes/files, you must ensure code is well formatted which is ensured by either doing:
+```Makefile
+make up
+```
+if you're on Docker or:
+You must set up pre-commit hooks so that our files would be formatted properly. To set up:
 - Visualize the `.git` folder by adding the following lines to your json settings in the `.vscode` folder:
 ```json
 "files.exclude": {
