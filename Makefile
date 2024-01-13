@@ -2,7 +2,7 @@ up:
 	@docker compose up
 
 bash:
-	@docker compose run app bash
+	@docker compose run --rm app bash
 
 build:
 	@pipenv install --dev
@@ -12,13 +12,13 @@ build-up:
 	@docker compose up --build
 
 createsuperuser:
-	@docker compose run app python manage.py createsuperuser
+	@docker compose run --rm app python manage.py createsuperuser
 
 down:
 	@docker compose down --remove-orphans
 
 flush-db:
-	@docker compose run app python manage.py flush
+	@docker compose run --rm app python manage.py flush
 	@make down
 
 format:
@@ -32,16 +32,16 @@ lint:
 	@black .
 
 makemigrations:
-	@docker compose run app python manage.py makemigrations
+	@docker compose run --rm app python manage.py makemigrations
 
 migrate:
-	@docker compose run app python manage.py migrate
+	@docker compose run --rm app python manage.py migrate
 
 shell:
-	@docker compose run app python manage.py shell
+	@docker compose run --rm app python manage.py shell
 
 test:
-	@docker compose run app python manage.py test
+	@docker compose run --rm app python manage.py test
 
 up-d:
 	@docker compose up -d
