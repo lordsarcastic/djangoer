@@ -36,6 +36,9 @@ migrations:
 migrate:
 	@docker compose run --rm app python manage.py migrate
 
+resetdb:
+	@docker compose run --rm api poetry run python src/manage.py reset_db --noinput
+
 run-command:
 	@docker compose run --rm app $(command)
 
