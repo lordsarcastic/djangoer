@@ -56,6 +56,9 @@ jobs:
           cp .env.ci .env
       
       - name: Running Django migrations check to ensure that there are no migrations left to create
+        env:
+          DATABASE_URL: 'postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/test?sslmode=disable'
+
         run: | 
           pipenv run python manage.py makemigrations --check --dry-run
 
