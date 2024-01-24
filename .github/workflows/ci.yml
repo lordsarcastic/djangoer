@@ -26,10 +26,10 @@ jobs:
         with:
           fetch-depth: 1
       
-      - name: Set up Python 3.9
+      - name: Set up Python 3.12
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.12
 
       - name: Install Pipenv
         uses: dschep/install-pipenv-action@v1
@@ -47,9 +47,17 @@ jobs:
         run: pipenv install --deploy --dev
         if: steps.pipenv-cache.outputs.cache-hit != 'true'
       
+      - name: Lint and format checks
+        run: |
+          pipenv run ruff check .
+      
       - name: Set environment variables
         run: |
           cp .env.ci .env
+      
+      - name: Running Django migrations check to ensure that there are no migrations left to create
+        run: | 
+          pipenv run python manage.py makemigrations --check --dry-run
 
       - name: Run tests
         env:
@@ -57,4 +65,4 @@ jobs:
 
         run: |
           pipenv run python manage.py migrate --noinput
-          pipenv run python manage.py test --noinput
+          pipenv run py.test
