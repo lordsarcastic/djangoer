@@ -20,6 +20,7 @@ psycopg2-binary = "*"
 django-anymail = {extras = ["mailgun"], version = "*"}
 pydantic = "*"
 drf-yasg = "*"
+pydantic-settings = "*"
 
 [dev-packages]
 black = "*"

@@ -11,16 +11,16 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from typing import List
 
 import django_on_heroku
-from pydantic import BaseSettings, PostgresDsn
+from pydantic import PostgresDsn
+from pydantic_settings import BaseSettings
 
 
 class GeneralSettings(BaseSettings):
     DEBUG: bool = False
     SECRET_KEY: str
-    ALLOWED_HOSTS: List[str]
+    ALLOWED_HOSTS: list[str]
     DATABASE_URL: PostgresDsn
     ENV: str = "production"
 
