@@ -22,14 +22,14 @@ flush-db:
 	@make down
 
 format:
-	@pipenv run isort . && pipenv run black .
+	@docker compose run --rm app ruff format .
+	@docker compose run --rm app ruff check . --fix --select I001
 
 install:
 	@pipenv install --dev
 
 lint:
-	@isort .
-	@black .
+	@docker compose run --rm app ruff check .
 
 makemigrations:
 	@docker compose run --rm app python manage.py makemigrations
