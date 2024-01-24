@@ -62,7 +62,6 @@ THIRD_PARTY_APPS = [
     "djoser",
     "anymail",
     "corsheaders",
-    "drf_yasg",
     "django_extensions",
 ]
 
