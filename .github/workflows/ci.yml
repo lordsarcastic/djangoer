@@ -22,20 +22,22 @@ jobs:
           --health-retries 5
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
       
       - name: Set up Python 3.12
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.12
+          python-version: '3.12'
 
       - name: Install Pipenv
-        uses: dschep/install-pipenv-action@v1
+        run: |
+          pip install pipenv
+          pipenv --version
       
       - name: Cache Pipenv Virtualenv
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         id: pipenv-cache
         with:
           path: ~/.local/share/virtualenvs
