@@ -11,19 +11,24 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from typing import Literal
 
-import django_on_heroku
+import dj_database_url
 from pydantic import PostgresDsn
 from pydantic_settings import BaseSettings
 
+
+EnvironmentType = Literal["dev", "staging", "prod"]
 
 class GeneralSettings(BaseSettings):
     DEBUG: bool = False
     SECRET_KEY: str
     ALLOWED_HOSTS: list[str]
     DATABASE_URL: PostgresDsn
-    ENV: str = "production"
+    ENVIRONMENT: EnvironmentType = "dev"
 
+
+GENERAL_SETTINGS = GeneralSettings()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,12 +38,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = GeneralSettings().SECRET_KEY
+SECRET_KEY = GENERAL_SETTINGS.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = GeneralSettings().DEBUG
+DEBUG = GENERAL_SETTINGS.DEBUG
 
-ALLOWED_HOSTS = GeneralSettings().ALLOWED_HOSTS
+ALLOWED_HOSTS = GENERAL_SETTINGS.ALLOWED_HOSTS
 
 
 # Application definition
@@ -99,7 +104,16 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {"default": {"ENGINE": "django.db.backends.postgresql_psycopg2"}}
+DATABASES = {
+    "default": {
+        **dj_database_url.config(conn_max_age=600, conn_health_checks=True),
+        "TIMEZONE": "UTC",
+        "ATOMIC_REQUESTS": True,
+        "OPTIONS": {
+            "client_encoding": "UTF8",
+        },
+    }
+}
 
 
 # Password validation
@@ -158,7 +172,3 @@ SIMPLE_JWT = {
 }
 
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
-
-django_on_heroku.settings(locals(), test_runner=False)
-if GeneralSettings().ENV == "development":
-    del DATABASES["default"]["OPTIONS"]["sslmode"]
