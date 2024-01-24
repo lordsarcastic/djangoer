@@ -62,7 +62,7 @@ THIRD_PARTY_APPS = [
     "djoser",
     "anymail",
     "corsheaders",
-    "drf_yasg",
+    "django_extensions",
 ]
 
 CUSTOM_APPS = []
@@ -126,12 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
             "UserAttributeSimilarityValidator"
         ),
     },
-    {
-        "NAME": (
-            "django.contrib.auth.password_validation."
-            "MinimumLengthValidator"
-        )
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {
         "NAME": (
             "django.contrib.auth.password_validation."
@@ -182,5 +177,3 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT",),
 }
-
-EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"

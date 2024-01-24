@@ -22,7 +22,7 @@ flush-db:
 
 format:
 	@docker compose run --rm app ruff format .
-	@docker compose run --rm app ruff check . --fix --select I001
+	@docker compose run --rm app ruff check . --fix --select I
 
 install:
 	@pipenv install --dev
@@ -46,7 +46,7 @@ shell:
 	@docker compose run --rm app python manage.py shell
 
 test:
-	@docker compose run --rm app py.test
+	@docker compose run --rm app py.test tests
 
 testcase:
 	@docker compose run --rm app py.test $(test)

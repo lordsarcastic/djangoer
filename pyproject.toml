@@ -1,26 +1,19 @@
-[tool.black]
-line-length = 79
-target-version = ['py39']
-include = '\.pyi?$'
-exclude = '''
-  /(
-      \.eggs
-    | \.git
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-    | migrations
-  )/
-'''
-
-[tool.isort]
-skip = [".gitignore", ".dockerignore"]
-skip_glob = ["*/dist/*", "*/migrations/*"]
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+pythonpath = ["src", "tests"]
+python_files = [
+    "test_*.py",
+    "*_test.py",
+    "testing/python/*.py"
+]
+norecursedirs = [
+    "scripts",
+    "node_modules",
+    "py-requirements",
+    "webpack",
+    ".*",
+    "{args}"
+]
 
 
 [tool.ruff]
