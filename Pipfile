@@ -23,8 +23,6 @@ drf-yasg = "*"
 pydantic-settings = "*"
 
 [dev-packages]
-black = "*"
-isort = "*"
 ruff = "*"
 
 [requires]
