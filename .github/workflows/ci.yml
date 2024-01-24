@@ -52,6 +52,7 @@ jobs:
       - name: Lint and format checks
         run: |
           pipenv run ruff check .
+          pipenv run ruff format --check .
       
       - name: Set environment variables
         run: |

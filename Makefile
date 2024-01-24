@@ -22,7 +22,7 @@ flush-db:
 
 format:
 	@docker compose run --rm app ruff format .
-	@docker compose run --rm app ruff check . --fix --select I001
+	@docker compose run --rm app ruff check . --fix --select I
 
 install:
 	@pipenv install --dev
