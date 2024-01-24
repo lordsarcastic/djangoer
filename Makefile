@@ -36,6 +36,9 @@ migrations:
 migrate:
 	@docker compose run --rm app python manage.py migrate
 
+run-command:
+	@docker compose run --rm app $(command)
+
 shell:
 	@docker compose run --rm app python manage.py shell
 
