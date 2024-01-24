@@ -1,5 +1,6 @@
-from .base import *  # noqa 403
+from datetime import timedelta
 
+from .base import *  # noqa 403
 
 DEBUG = True
 
