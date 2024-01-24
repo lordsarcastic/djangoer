@@ -5,7 +5,6 @@ bash:
 	@docker compose run --rm app bash
 
 build:
-	@pipenv install --dev
 	@docker compose build
 
 build-up:
@@ -31,7 +30,7 @@ install:
 lint:
 	@docker compose run --rm app ruff check .
 
-makemigrations:
+migrations:
 	@docker compose run --rm app python manage.py makemigrations
 
 migrate:
