@@ -12,15 +12,17 @@ djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
 requests = "*"
 pillow = "*"
-mock = "*"
 psycopg2-binary = "*"
 django-anymail = {extras = ["mailgun"], version = "*"}
 pydantic = "*"
 drf-yasg = "*"
 pydantic-settings = "*"
+dj-database-url = "*"
 
 [dev-packages]
 ruff = "*"
+pytest = "*"
+pytest-django = "*"
 
 [requires]
 python_version = "3.12"
