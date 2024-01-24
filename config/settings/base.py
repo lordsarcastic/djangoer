@@ -182,5 +182,3 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT",),
 }
-
-EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
